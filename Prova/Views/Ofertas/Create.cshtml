@@ -1,0 +1,193 @@
+﻿@model Prova.Models.OfertaView
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>Oferta</h4>
+<hr />
+<div class="row">
+    <div class="col-sm-12">
+        <form asp-action="Create">
+            <input hidden asp-for="Cliente.Id" class="form-control" />
+
+
+            <div id="cliente" class="form-group">
+                <h6>Cliente</h6>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label asp-for="Cliente.Cpf" class="control-label"></label>
+                        <input disabled asp-for="Cliente.Cpf" class="form-control" />
+                        <span asp-validation-for="Cliente.Cpf" class="text-danger"></span>
+                    </div>
+                    <div class="col-sm-6">
+                        <label asp-for="Cliente.Nome" class="control-label"></label>
+                        <input required asp-for="Cliente.Nome" class="form-control" />
+                        <span asp-validation-for="Cliente.Nome" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label asp-for="Cliente.Credito" class="control-label"></label>
+                        <input id="credito" disabled asp-for="Cliente.Credito" class="form-control" />
+                        <span asp-validation-for="Cliente.Credito" class="text-danger"></span>
+                    </div>
+                    <div class="col-sm-4">
+                        <label asp-for="Cliente.Telefone" class="control-label"></label>
+                        <input required asp-for="Cliente.Telefone" class="form-control" />
+                        <span asp-validation-for="Cliente.Telefone" class="text-danger"></span>
+                    </div>
+                    <div class="col-sm-4">
+                        <label asp-for="Cliente.IdStatus" class="control-label"></label>
+                        <select disabled id="idStatus" asp-for="Cliente.IdStatus" class="form-control" asp-items="ViewBag.StatusList">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="form-group">
+                <h6>Oferta</h6>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label asp-for="Produto.Descricao" class="control-label"></label>
+                        <select id="idProduto" asp-for="Produto.CodProduto" class="form-control" asp-items="ViewBag.ProdutosList" onchange="alteraritens()">
+                            <option value="">- Selecione -</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
+                        <label asp-for="Produto.Tipo" class="control-label"></label>
+                        <input disabled id="TipoProduto" asp-for="Produto.Tipo" class="form-control" />
+                        <span asp-validation-for="Produto.Tipo" class="text-danger"></span>
+                    </div>
+                    <div class="col-sm-4">
+                        <label asp-for="Status.Descricao" class="control-label"></label>
+                        <select required id="idNewStatus" asp-for="Status.CodStatus" class="form-control" asp-items="ViewBag.StatusList" onchange="contvenda()">
+                            <option value="">- Selecione -</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label asp-for="Produto.Preco" class="control-label"></label>
+                        <input disabled value="0" id="valorProduto" asp-for="Produto.Preco" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <br />
+
+            <div style="display: none;" id="endereco" class="form-group">
+                <h6>Endereço Entrega</h6>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label asp-for="Endereco.Cep" class="control-label"></label>
+                        <input id="cep" asp-for="Endereco.Cep" class="form-control" />
+                        <span asp-validation-for="Endereco.Cep" class="text-danger"></span>
+                    </div>
+                    <div class="col-sm-6">
+                        <label asp-for="Endereco.Rua" class="control-label"></label>
+                        <input id="rua" asp-for="Endereco.Rua" class="form-control" />
+                        <span asp-validation-for="Endereco.Rua" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label asp-for="Endereco.Numero" class="control-label"></label>
+                        <input id="numero" asp-for="Endereco.Numero" class="form-control" />
+                        <span asp-validation-for="Endereco.Numero" class="text-danger"></span>
+                    </div>
+                    <div class="col-sm-6">
+                        <label asp-for="Endereco.Complemento" class="control-label"></label>
+                        <input asp-for="Endereco.Complemento" class="form-control" />
+                        <span asp-validation-for="Endereco.Complemento" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label asp-for="Endereco.Bairro" class="control-label"></label>
+                        <input id="bairro" asp-for="Endereco.Bairro" class="form-control" />
+                        <span asp-validation-for="Endereco.Bairro" class="text-danger"></span>
+                    </div>
+                    <div class="col-sm-4">
+                        <label asp-for="Endereco.Cidade" class="control-label"></label>
+                        <input id="cidade" asp-for="Endereco.Cidade" class="form-control" />
+                        <span asp-validation-for="Endereco.Cidade" class="text-danger"></span>
+                    </div>
+                    <div class="col-sm-4">
+                        <label asp-for="Endereco.Estado" class="control-label"></label>
+                        <input id="estado" asp-for="Endereco.Estado" class="form-control" />
+                        <span asp-validation-for="Endereco.Estado" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <script>
+        function alteraritens() {
+            var cod = $("#idProduto").val();
+            $.ajax({
+                url: '/Produtos/GetProduto',
+                data: { CodProduto: cod }
+            }).done(function (data) {
+                $("#TipoProduto").val(data.tipo);
+                $("#valorProduto").val(data.preco);
+
+                if (data.tipo == "HARDWARE") {
+                    $("#endereco").show();
+
+                    $("#cep").attr('required', '');
+                    $("#rua").attr('required', '');
+                    $("#numero").attr('required', '');
+                    $("#bairro").attr('required', '');
+                    $("#cidade").attr('required', '');
+                    $("#estado").attr('required', '');
+
+                    console.log("false");
+                }else {
+                    $("#endereco").hide();
+
+                    $("#cep").removeAttr('required');
+                    $("#rua").removeAttr('required');
+                    $("#numero").removeAttr('required');
+                    $("#bairro").removeAttr('required');
+                    $("#cidade").removeAttr('required');
+                    $("#estado").removeAttr('required');
+
+                    console.log("true");
+                };
+            });
+        };
+
+        function contvenda() {
+            var status = $("#idNewStatus").val();
+            console.log(status);
+            var valorprod = parseInt($("#valorProduto").val());
+            var credito = parseInt($("#credito").val());
+            console.log(valorprod);
+
+            var dif = credito - valorprod;
+            console.log(dif);
+
+            if (status == "9" && dif < 0 || valorprod == 0) {
+                $("#idNewStatus").val("");
+                alert("Selecione um produto ou verifique o valor do produto e o valor de credito do cliente!");
+            };
+
+        };
+
+    </script>
+}
+
+

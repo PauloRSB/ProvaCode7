@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Prova.Models.CliStatus>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+<form asp-action="Index" asp-controller="Ofertas" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Procurar por Nome ou CPF: <input type="text" name="filtro" value="@ViewData["filtro"]" />
+            <input type="submit" value="Procurar" class="btn btn-default" /> |
+            <a asp-action="Index" asp-controller="Ofertas">Limpar</a>
+        </p>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Cliente.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cliente.Cpf)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status.Descricao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cliente.Credito)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cliente.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cliente.Cpf)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status.Descricao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cliente.Credito)
+                </td>
+                <td>
+                    @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |*@
+                    <a asp-action="Create" asp-controller="Ofertas" asp-route-idCliente="@item.Cliente.Id">Nova Oferta</a> |
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

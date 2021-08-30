@@ -1,0 +1,8 @@
+para acessar a API basta executar a solução e abrir o site;
+
+Necessário autenticação por Bearer token;
+
+body sempre Json de acordo com a classe que ele deserializa
+localhost /api/Consult/Token - Pegar token novo - GET
+localhost /api/Consult/Produto - cadastrar produto - POST
+localhost /api/Consult/Vendas - consultar vensa - GET - se nehum dado for informado no body retorna todas
